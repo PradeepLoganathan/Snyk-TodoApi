@@ -22,6 +22,6 @@ jobs:
     - name: Snyk Security Scan
       uses: snyk/actions/dotnet@master
       with:
-        args: --severity-threshold=high
+        args: --severity-threshold=high, --all-projects
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
