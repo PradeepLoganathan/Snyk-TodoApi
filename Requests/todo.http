@@ -1,0 +1,52 @@
+### Create a user
+@password = P@ssw0rd
+
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "username": "pradeepl",
+    "password": "{{password}}"
+}
+
+### Get a token
+
+POST http://localhost:5000/users/token
+Content-Type: application/json
+
+{
+    "username": "pradeepl",
+    "password": "{{password}}"
+}
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InByYWRlZXBsIiwic3ViIjoicHJhZGVlcGwiLCJqdGkiOiJhOWFkYjhiOCIsImF1ZCI6WyJodHRwOi8vbG9jYWxob3N0OjQ3NzQzIiwiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzNzEiLCJodHRwOi8vbG9jYWxob3N0OjUwMDAiLCJodHRwczovL2xvY2FsaG9zdDo1MDAxIl0sIm5iZiI6MTcyNTQzMzgzNCwiZXhwIjoxNzMzMjk2MjM0LCJpYXQiOjE3MjU0MzM4MzUsImlzcyI6ImRvdG5ldC11c2VyLWp3dHMifQ.184c3OCYUeAjgvzf34Rds5Zxzj4BBqUgzVVwJ8rm55c
+
+### Create a todo
+
+POST http://localhost:5000/todos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "title": "Get a haircut"
+}
+
+### Create another todo
+
+POST http://localhost:5000/todos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "title": "Understand Snyk OpenSource"
+}
+
+
+### Get all todos
+
+GET http://localhost:5000/todos
+Authorization: Bearer {{token}}
+
+### Delete a todo
+DELETE http://localhost:5000/todos/1
+Authorization: Bearer {{token}}
