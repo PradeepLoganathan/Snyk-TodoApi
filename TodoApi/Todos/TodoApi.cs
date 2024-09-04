@@ -36,6 +36,17 @@ internal static class TodoApi
             };
         });
 
+        // Add this vulnerable route to the existing routes
+        group.MapGet("/unsafe/{id}", async (TodoDbContext db, int id, CurrentUser owner) =>
+        {
+            // Insecure use of raw SQL without parameterization (SQL Injection vulnerability)
+            var query = $"SELECT * FROM Todos WHERE Id = {id} AND OwnerId = {owner.Id}";
+
+            var todos = await db.Todos.FromSqlRaw(query).AsNoTracking().ToListAsync();
+
+            return todos.Any() ? TypedResults.Ok(todos) : TypedResults.NotFound();
+        });
+
         group.MapPost("/", async Task<Created<TodoItem>> (TodoDbContext db, TodoItem newTodo, CurrentUser owner) =>
         {
             var todo = new Todo
