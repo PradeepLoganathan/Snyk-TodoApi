@@ -18,10 +18,10 @@ jobs:
     - name: dotnet test
       run: dotnet test TodoApi.sln -c Release --no-build
     
-    # Run Snyk Security Scan and fail build on high or critical severity vulnerabilities
+    #Run Snyk Security Scan and fail build on high or critical severity vulnerabilities
     - name: Snyk Security Scan
       uses: snyk/actions/dotnet@master
       with:
-        args: test
+        args: --severity-threshold=high
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
