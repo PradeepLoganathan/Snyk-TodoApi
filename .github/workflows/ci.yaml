@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v3
@@ -20,6 +20,7 @@ jobs:
     
     #Run Snyk Security Scan and fail build on high or critical severity vulnerabilities
     - name: Snyk Security Scan
+      id: snyk_scan
       uses: snyk/actions/dotnet@master
       with:
         args: 
@@ -28,7 +29,15 @@ jobs:
           --sarif-file-output=snyk.sarif
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      continue-on-error: true
+     
+    # Upload SARIF to GitHub Code Scanning
     - name: Upload result to GitHub Code Scanning
       uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: snyk.sarif
+    
+    # Fail the build if there are any high or critical vulnerabilities
+    - name: Check for vulnerabilities
+      if: steps.snyk_scan.outcome == 'failure'
+      run: exit 1
