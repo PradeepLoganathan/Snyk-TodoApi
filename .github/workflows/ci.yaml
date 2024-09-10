@@ -26,6 +26,7 @@ jobs:
         args: 
           --severity-threshold=high
           --all-projects
+          --org=pradeeploganathan
           --sarif-file-output=snyk.sarif
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
