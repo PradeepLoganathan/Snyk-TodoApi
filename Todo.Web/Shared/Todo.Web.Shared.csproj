@@ -3,4 +3,9 @@
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework> <!-- Add this -->
+  </PropertyGroup>
+  
 </Project>

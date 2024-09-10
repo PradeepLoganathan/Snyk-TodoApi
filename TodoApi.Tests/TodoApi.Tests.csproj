@@ -15,5 +15,9 @@
         <Using Include="System.Net" />
         <Using Include="Xunit" />
     </ItemGroup>
+  
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework> <!-- Add this -->
+  </PropertyGroup>
 
 </Project>
